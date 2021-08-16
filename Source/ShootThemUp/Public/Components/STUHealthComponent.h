@@ -23,6 +23,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "1000.0"), Category= "Health")
 	float MaxHealth = 100.f;
 
+	UFUNCTION()
+	void OnTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );
+
 private:
 	float Health = 0.0f;
 
