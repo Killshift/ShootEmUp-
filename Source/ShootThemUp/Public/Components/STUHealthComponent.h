@@ -31,11 +31,25 @@ protected:
 	void OnTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser );
 
 	UFUNCTION(BlueprintCallable)
-	bool IsDead() const {return Health <= 0.0f;}
+	bool IsDead() const {return FMath::IsNearlyZero(Health); }
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Heal")
+	bool AutoHeal = true;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Heal", meta = (EditCondition = "AutoHeal"))
+	float HealUpdateTime = 1.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Heal", meta = (EditCondition = "AutoHeal"))
+	float HealDelay = 3.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Heal", meta = (EditCondition = "AutoHeal"))
+	float HealModifier = 5.0f;
 
 private:
 	float Health = 0.0f;
+	FTimerHandle HealTimerHandle;
 
-		
+	void HealUpdate();
+
+	void SetHealth(float NewHealth);
 };
