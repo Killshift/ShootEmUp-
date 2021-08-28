@@ -22,7 +22,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	USkeletalMeshComponent* WeaponMesh;
 
-public:	
+public:
 
+	virtual void Fire();
 
 };
