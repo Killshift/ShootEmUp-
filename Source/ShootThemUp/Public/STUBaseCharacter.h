@@ -52,7 +52,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	UTextRenderComponent* HealthTextComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	USTUWeaponComponent* WeaponComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Animation")

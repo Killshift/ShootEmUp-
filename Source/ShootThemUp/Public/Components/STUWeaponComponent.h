@@ -1,4 +1,4 @@
-// Test Project
+// Shoot Them Up Game, All Rights Reserved.
 
 #pragma once
 
@@ -8,31 +8,41 @@
 
 class ASTUBaseWeapon;
 
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class SHOOTTHEMUP_API USTUWeaponComponent : public UActorComponent
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 public:
+    USTUWeaponComponent();
 
-	USTUWeaponComponent();
-
-	void StartFire();
-	void StopFire();
+    void StartFire();
+    void StopFire();
+    void NextWeapon();
 
 protected:
-	
-	virtual void BeginPlay() override;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    TArray<TSubclassOf<ASTUBaseWeapon>> WeaponClasses;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	TSubclassOf<ASTUBaseWeapon> WeaponClass;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    FName WeaponEquipSocketName = "WeaponSocket";
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	FName WeaponAttachPointName = "WeaponSocket";
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    FName WeaponArmorySocketName = "ArmorySocket";
+
+    virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
-	UPROPERTY()
-	ASTUBaseWeapon* CurrentWeapon = nullptr;
+    UPROPERTY()
+    ASTUBaseWeapon* CurrentWeapon = nullptr;
 
-	void SpawnWeapon();
+    UPROPERTY()
+    TArray<ASTUBaseWeapon*> Weapons;
+
+    int32 CurrentWeaponIndex = 0;
+
+    void SpawnWeapons();
+    void AttachWeaponToSocket(ASTUBaseWeapon* Weapon, USceneComponent* SceneComponent, const FName& SocketName);
+    void EquipWeapon(int32 WeaponIndex);
 };
