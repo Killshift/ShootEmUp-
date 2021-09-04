@@ -3,7 +3,6 @@
 #include "Weapon/STUBaseWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
-#include "DrawDebugHelpers.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
 
@@ -24,20 +23,11 @@ void ASTUBaseWeapon::BeginPlay()
     check(WeaponMesh);
 }
 
-void ASTUBaseWeapon::StartFire()
-{
-   
-}
+void ASTUBaseWeapon::StartFire() {}
 
-void ASTUBaseWeapon::StopFire()
-{
-    
-}
+void ASTUBaseWeapon::StopFire() {}
 
-void ASTUBaseWeapon::MakeShot()
-{
-    
-}
+void ASTUBaseWeapon::MakeShot() {}
 
 APlayerController* ASTUBaseWeapon::GetPlayerController() const
 {
@@ -68,7 +58,7 @@ bool ASTUBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
     if (!GetPlayerViewPoint(ViewLocation, ViewRotation)) return false;
 
     TraceStart = ViewLocation;
-	const FVector ShootDirection = ViewRotation.Vector();
+    const FVector ShootDirection = ViewRotation.Vector();
     TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
     return true;
 }
@@ -81,12 +71,4 @@ void ASTUBaseWeapon::MakeHit(FHitResult& HitResult, const FVector& TraceStart, c
     CollisionParams.AddIgnoredActor(GetOwner());
 
     GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionParams);
-}
-
-void ASTUBaseWeapon::MakeDamage(const FHitResult& HitResult)
-{
-    const auto DamagedActor = HitResult.GetActor();
-    if(!DamagedActor) return;
-
-    DamagedActor->TakeDamage(DamageAmount, FDamageEvent(), GetPlayerController(), this);
 }
