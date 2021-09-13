@@ -10,7 +10,7 @@ void ASTULauncherWeapon::StartFire()
 
 void ASTULauncherWeapon::MakeShot()
 {
-     if (!GetWorld()) return;
+    if (!GetWorld() || IsAmmoEmpty()) return;
 
     FVector TraceStart, TraceEnd;
     if (!GetTraceData(TraceStart, TraceEnd)) return;
@@ -23,10 +23,12 @@ void ASTULauncherWeapon::MakeShot()
 
     const FTransform SpawnTransform(FRotator::ZeroRotator, GetMuzzleWorldLocation());
     ASTUProjectile* Projectile = GetWorld()->SpawnActorDeferred<ASTUProjectile>(ProjectileClass, SpawnTransform);
-    if(Projectile)
+    if (Projectile)
     {
         Projectile->SetShotDirection(Direction);
         Projectile->SetOwner(GetOwner());
         Projectile->FinishSpawning(SpawnTransform);
     }
+
+    DecreaseAmmo();
 }
