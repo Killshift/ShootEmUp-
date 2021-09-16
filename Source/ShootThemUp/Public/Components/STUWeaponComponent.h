@@ -61,6 +61,7 @@ private:
 
     int32 CurrentWeaponIndex = 0;
     bool EquipAnimInProgress = false;
+    bool ReloadAnimInProgress = false;
 
     void InitAnimations();
     void SpawnWeapons();
@@ -70,7 +71,26 @@ private:
     void PlayAnimMontage(UAnimMontage* Animation);
 
     void OnEquipFinished(USkeletalMeshComponent* MeshComp);
+    void OnReloadFinished(USkeletalMeshComponent* MeshComp);
 
     bool CanFire() const;
     bool CanEquip() const;
+    bool CanReload() const;
+
+    template <typename T>
+    T* FindNotifyByClass(UAnimSequenceBase* Animation)
+    {
+        if (!Animation) return nullptr;
+
+        const auto NotifyEvents = Animation->Notifies;
+        for (auto NotifyEvent : NotifyEvents)
+        {
+            auto AnimNotify = Cast<T>(NotifyEvent.Notify);
+            if (AnimNotify)
+            {
+                return AnimNotify;
+            }
+        }
+        return nullptr;
+    }
 };
