@@ -8,6 +8,8 @@
 #include "STUBaseWeapon.generated.h"
 
 class USkeletalMeshComponent;
+class UNiagaraSystem;
+class UNiagaraComponent;
 
 UCLASS()
 class SHOOTTHEMUP_API ASTUBaseWeapon : public AActor
@@ -32,21 +34,22 @@ public:
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-        USkeletalMeshComponent* WeaponMesh;
+    USkeletalMeshComponent* WeaponMesh;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        FName MuzzleSocketName = "MuzzleSocket";
+    FName MuzzleSocketName = "MuzzleSocket";
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        float TraceMaxDistance = 1500.0f;
+    float TraceMaxDistance = 1500.0f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        FAmmoData DefaultAmmo {
-        15, 10, false
-    };
+    FAmmoData DefaultAmmo{15, 10, false};
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-        FWeaponUIData UIData;
+    FWeaponUIData UIData;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+    UNiagaraSystem* MuzzleFX;
 
     virtual void BeginPlay() override;
 
@@ -65,6 +68,8 @@ protected:
     bool IsAmmoFull() const;
 
     void LogAmmo();
+
+    UNiagaraComponent* SpawnMuzzleFX();
 
 private:
     FAmmoData CurrentAmmo;

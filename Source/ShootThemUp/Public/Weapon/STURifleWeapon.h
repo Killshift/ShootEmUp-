@@ -7,6 +7,7 @@
 #include "STURifleWeapon.generated.h"
 
 class USTUWeaponFXComponent;
+class UNiagaraComponent;
 
 UCLASS()
 class SHOOTTHEMUP_API ASTURifleWeapon : public ASTUBaseWeapon
@@ -21,16 +22,16 @@ public:
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        float TimeBetweenShots = 0.1f;
+    float TimeBetweenShots = 0.1f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        float BulletSpread = 1.5f;
+    float BulletSpread = 1.5f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
-        float DamageAmount = 10.0f;
+    float DamageAmount = 10.0f;
 
     UPROPERTY(VisibleAnywhere, Category = "VFX")
-        USTUWeaponFXComponent* WeaponFXComponent;
+    USTUWeaponFXComponent* WeaponFXComponent;
 
     virtual void BeginPlay() override;
     virtual void MakeShot() override;
@@ -39,5 +40,10 @@ protected:
 private:
     FTimerHandle ShotTimerHandle;
 
+    UPROPERTY()
+    UNiagaraComponent* MuzzleFXComponent;
+
     void MakeDamage(const FHitResult& HitResult);
+    void InitMuzzleFX();
+    void SetMuzzleFXVisibility(bool Visible);
 };
