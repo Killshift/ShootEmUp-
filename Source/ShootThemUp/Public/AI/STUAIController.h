@@ -14,12 +14,12 @@ class SHOOTTHEMUP_API ASTUAIController : public AAIController
     GENERATED_BODY()
 
 public:
-   //  ASTUAIController();
+    ASTUAIController();
 
 protected:
-    virtual void OnPossess(APawn* InPawn) override;
-
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USTUAIPerceptionComponent* STUAIPerceptionComponent;
+    USTUAIPerceptionComponent* STUAIPerceptionComponent;
 
+    virtual void OnPossess(APawn* InPawn) override;
+    virtual void Tick(float DeltaTime) override;
 };

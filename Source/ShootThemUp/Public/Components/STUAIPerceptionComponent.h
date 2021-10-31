@@ -1,4 +1,4 @@
-// Test Project
+// Shoot Them Up Game, All Rights Reserved.
 
 #pragma once
 
@@ -6,12 +6,11 @@
 #include "Perception/AIPerceptionComponent.h"
 #include "STUAIPerceptionComponent.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class SHOOTTHEMUP_API USTUAIPerceptionComponent : public UAIPerceptionComponent
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
+public:
+    AActor* GetClosestEnemy() const;
 };
