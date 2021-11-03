@@ -88,7 +88,7 @@ void USTUWeaponComponent::EquipWeapon(int32 WeaponIndex)
     // CurrentReloadAnimMontage = WeaponData[WeaponIndex].ReloadAnimMontage;
     const auto CurrentWeaponData = WeaponData.FindByPredicate([&](const FWeaponData& Data) {  //
         return Data.WeaponClass == CurrentWeapon->GetClass();                                 //
-        });
+    });
     CurrentReloadAnimMontage = CurrentWeaponData ? CurrentWeaponData->ReloadAnimMontage : nullptr;
 
     AttachWeaponToSocket(CurrentWeapon, Character->GetMesh(), WeaponEquipSocketName);
@@ -177,9 +177,9 @@ bool USTUWeaponComponent::CanEquip() const
 bool USTUWeaponComponent::CanReload() const
 {
     return CurrentWeapon             //
-        && !EquipAnimInProgress   //
-        && !ReloadAnimInProgress  //
-        && CurrentWeapon->CanReload();
+           && !EquipAnimInProgress   //
+           && !ReloadAnimInProgress  //
+           && CurrentWeapon->CanReload();
 }
 
 void USTUWeaponComponent::Reload()
@@ -243,6 +243,18 @@ bool USTUWeaponComponent::TryToAddAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType, i
         if (Weapon && Weapon->IsA(WeaponType))
         {
             return Weapon->TryToAddAmmo(ClipsAmount);
+        }
+    }
+    return false;
+}
+
+bool USTUWeaponComponent::NeedAmmo(TSubclassOf<ASTUBaseWeapon> WeaponType)
+{
+    for (const auto Weapon : Weapons)
+    {
+        if (Weapon && Weapon->IsA(WeaponType))
+        {
+            return !Weapon->IsAmmoFull();
         }
     }
     return false;
