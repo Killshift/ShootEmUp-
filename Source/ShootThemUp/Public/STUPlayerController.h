@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Shoot Them Up Game, All Rights Reserved.
 
 #pragma once
 
@@ -6,12 +6,17 @@
 #include "GameFramework/PlayerController.h"
 #include "STUPlayerController.generated.h"
 
-/**
- * 
- */
+class USTURespawnComponent;
+
 UCLASS()
 class SHOOTTHEMUP_API ASTUPlayerController : public APlayerController
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
+public:
+    ASTUPlayerController();
+
+protected:
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    USTURespawnComponent* RespawnComponent;
 };
