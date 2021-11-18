@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "STUBaseCharacter.h"
+#include "Player/STUBaseCharacter.h"
 #include "STUAICharacter.generated.h"
 
 class UBehaviorTree;

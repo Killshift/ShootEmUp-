@@ -1,10 +1,10 @@
 // Test Project
 
 
-#include "Components/STU_CharacterMovementComponent.h"
-#include "STUBaseCharacter.h"
+#include "Components/STUCharacterMovementComponent.h"
+#include "Player/STUBaseCharacter.h"
 
-float USTU_CharacterMovementComponent::GetMaxSpeed() const
+float USTUCharacterMovementComponent::GetMaxSpeed() const
 {
 	const auto MaxSpeed = Super::GetMaxSpeed();
 	const ASTUBaseCharacter* Player = Cast<ASTUBaseCharacter>(GetPawnOwner());

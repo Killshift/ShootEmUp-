@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "STU_CharacterMovementComponent.generated.h"
+#include "STUCharacterMovementComponent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SHOOTTHEMUP_API USTU_CharacterMovementComponent : public UCharacterMovementComponent
+class SHOOTTHEMUP_API USTUCharacterMovementComponent : public UCharacterMovementComponent
 {
 	GENERATED_BODY()
 
